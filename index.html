@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>X TG</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: #03050a;
+            color: white;
+            font-family: "Trebuchet MS", Arial, sans-serif;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            bottom: -180px;
+            left: 50%;
+            width: 650px;
+            height: 350px;
+            transform: translateX(-50%);
+            background: #008cff;
+            filter: blur(110px);
+            opacity: 0.65;
+            z-index: -1;
+        }
+
+        .judul {
+            margin-top: 30px;
+            font-size: 30px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-shadow: 0 0 15px #ffffff55;
+        }
+
+        .logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 34px;
+            font-weight: bold;
+            letter-spacing: 4px;
+        }
+
+        .kotak {
+            width: 85%;
+            max-width: 500px;
+            margin: 55px auto 45px;
+            padding: 38px 20px;
+            border-radius: 28px;
+
+            background: #111827;
+
+            border: 1px solid #1e3a5f;
+
+            box-shadow:
+                0 0 20px #006eff44,
+                inset 0 0 20px #ffffff05;
+        }
+
+        .kotak h2 {
+            margin: 0;
+            font-size: 34px;
+            font-weight: bold;
+            letter-spacing: -1px;
+        }
+
+        .tombol {
+            display: block;
+            width: 85%;
+            max-width: 380px;
+            margin: 25px auto;
+            padding: 20px;
+
+            background: #0b1040;
+            color: #cbd5ff;
+
+            border: 1px solid #151b68;
+            border-radius: 12px;
+
+            font-size: 27px;
+            font-weight: bold;
+            text-decoration: none;
+
+            box-shadow: 0 0 15px #1824a044;
+
+            transition: 0.25s;
+        }
+
+        .tombol:hover {
+            transform: translateY(-3px);
+            background: #12195c;
+            box-shadow: 0 0 25px #236bff77;
+        }
+
+        .foto-area {
+            width: 90%;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .foto-area img {
+            width: 100%;
+            margin-top: 15px;
+            border-radius: 18px;
+            box-shadow: 0 0 20px #008cff55;
+        }
+
+        input {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="logo">X TG</div>
+
+    <div class="judul">
+        Selamat Datang
+    </div>
+
+    <div class="kotak">
+        <h2>Mau apa nih?</h2>
+    </div>
+
+    <label class="tombol" for="fotbar">
+        Fotbar X TG
+    </label>
+
+    <input
+        type="file"
+        id="fotbar"
+        accept="image/*"
+        multiple
+        onchange="tampilkanFoto(this, 'hasilFotbar')"
+    >
+
+    <div id="hasilFotbar" class="foto-area"></div>
+
+
+    <label class="tombol" for="sertifikat">
+        Sertifikat Kelas
+    </label>
+
+    <input
+        type="file"
+        id="sertifikat"
+        accept="image/*"
+        multiple
+        onchange="tampilkanFoto(this, 'hasilSertifikat')"
+    >
+
+    <div id="hasilSertifikat" class="foto-area"></div>
+
+
+    <script>
+        function tampilkanFoto(input, tujuan) {
+
+            const area = document.getElementById(tujuan);
+
+            area.innerHTML = "";
+
+            for (let file of input.files) {
+
+                const gambar = document.createElement("img");
+
+                gambar.src = URL.createObjectURL(file);
+
+                area.appendChild(gambar);
+            }
+        }
+    </script>
+
+</body>
+</html>
