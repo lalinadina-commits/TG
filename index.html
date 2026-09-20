@@ -161,23 +161,5 @@
     <div id="hasilSertifikat" class="foto-area"></div>
 
 
-    <script>
-        function tampilkanFoto(input, tujuan) {
-
-            const area = document.getElementById(tujuan);
-
-            area.innerHTML = "";
-
-            for (let file of input.files) {
-
-                const gambar = document.createElement("img");
-
-                gambar.src = URL.createObjectURL(file);
-
-                area.appendChild(gambar);
-            }
-        }
-    </script>
-
 </body>
 </html>
