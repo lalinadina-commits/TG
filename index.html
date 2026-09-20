@@ -1,71 +1,64 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Untuk Kamu 💗</title>
+    <title>X TG</title>
 
     <style>
         body {
-            text-align: center;
+            margin: 0;
+            background: #05070d;
+            color: white;
             font-family: Arial, sans-serif;
-            background: pink;
-            padding-top: 100px;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            bottom: -150px;
+            left: 50%;
+            width: 600px;
+            height: 300px;
+            transform: translateX(-50%);
+            background: #008cff;
+            filter: blur(100px);
+            opacity: 0.7;
+            z-index: -1;
+        }
+
+        h1 {
+            margin-top: 50px;
+            font-size: 36px;
         }
 
         .kotak {
-            background: white;
-            padding: 30px;
-            margin: auto;
             width: 80%;
-            max-width: 400px;
-            border-radius: 20px;
+            max-width: 500px;
+            margin: 70px auto;
+            padding: 60px 20px;
+            background: rgba(20, 25, 40, 0.9);
+            border-radius: 30px;
+            box-shadow: 0 0 30px rgba(0, 140, 255, 0.3);
         }
 
-        button {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 10px;
-            font-size: 18px;
-            margin: 10px;
-            cursor: pointer;
-        }
-
-        #ya {
-            background: hotpink;
-            color: white;
-        }
-
-        #tidak {
-            background: lightgray;
+        .logo {
+            font-size: 60px;
+            font-weight: bold;
+            letter-spacing: 8px;
+            color: #4db8ff;
+            text-shadow: 0 0 20px #008cff;
         }
     </style>
 </head>
 
 <body>
 
+    <h1>Selamat Datang</h1>
+
     <div class="kotak">
-        <h1>💗 Hai kamu!</h1>
-
-        <p>Aku mau nanya sesuatu...</p>
-
-        <h2>Maukah kamu jadi orang spesial buat aku? 🥺</h2>
-
-        <button id="ya" onclick="jawabYa()">Mau ❤️</button>
-        <button id="tidak" onclick="jawabTidak()">Nggak 😭</button>
-
-        <p id="hasil"></p>
+        <div class="logo">X TG</div>
     </div>
-
-    <script>
-        function jawabYa() {
-            document.getElementById("hasil").innerHTML =
-            "YEEEYYY ❤️🥹 Aku senang banget!";
-        }
-
-        function jawabTidak() {
-            document.getElementById("hasil").innerHTML =
-            "Yahhh 😭 gapapa, tetap makasih udah jawab ❤️";
-        }
-    </script>
 
 </body>
 </html>
