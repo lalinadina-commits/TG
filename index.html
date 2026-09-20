@@ -1,10 +1,71 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Website Pertamaku</title>
+    <title>Untuk Kamu 💗</title>
+
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background: pink;
+            padding-top: 100px;
+        }
+
+        .kotak {
+            background: white;
+            padding: 30px;
+            margin: auto;
+            width: 80%;
+            max-width: 400px;
+            border-radius: 20px;
+        }
+
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+        #ya {
+            background: hotpink;
+            color: white;
+        }
+
+        #tidak {
+            background: lightgray;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Haii!</h1>
-    <p>Ini website pertamaku.</p>
+
+    <div class="kotak">
+        <h1>💗 Hai kamu!</h1>
+
+        <p>Aku mau nanya sesuatu...</p>
+
+        <h2>Maukah kamu jadi orang spesial buat aku? 🥺</h2>
+
+        <button id="ya" onclick="jawabYa()">Mau ❤️</button>
+        <button id="tidak" onclick="jawabTidak()">Nggak 😭</button>
+
+        <p id="hasil"></p>
+    </div>
+
+    <script>
+        function jawabYa() {
+            document.getElementById("hasil").innerHTML =
+            "YEEEYYY ❤️🥹 Aku senang banget!";
+        }
+
+        function jawabTidak() {
+            document.getElementById("hasil").innerHTML =
+            "Yahhh 😭 gapapa, tetap makasih udah jawab ❤️";
+        }
+    </script>
+
 </body>
 </html>
