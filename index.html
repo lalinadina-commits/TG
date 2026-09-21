@@ -2360,6 +2360,21 @@ function chessClick(row,col){
 
 function openChess(){
 
+    gamesPlayed++;
+
+    localStorage.setItem(
+        "xtgGames",
+        gamesPlayed
+    );
+
+    document
+        .getElementById("gameCount")
+        .textContent = gamesPlayed;
+
+    document
+        .getElementById("lastGame")
+        .textContent = "Catur";
+
     document
         .getElementById("chessGame")
         .classList
@@ -2368,7 +2383,6 @@ function openChess(){
     startChess();
 
 }
-
 
 /* =========================
    TUTUP CATUR
