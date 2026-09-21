@@ -1926,11 +1926,10 @@ function openGame(name){
 <style>
 
 .chess-overlay{
-
     position:fixed;
     inset:0;
 
-    z-index:2000;
+    z-index:99999;
 
     display:none;
 
@@ -1939,9 +1938,11 @@ function openGame(name){
 
     padding:15px;
 
-    background:#000d;
+    background:rgba(0,0,0,.88);
 
     backdrop-filter:blur(15px);
+
+    isolation:isolate;
 }
 
 .chess-overlay.active{
@@ -1949,6 +1950,8 @@ function openGame(name){
 }
 
 .chess-box{
+    position:relative;
+    z-index:100000;
 
     width:min(95vw,600px);
 
@@ -1960,12 +1963,9 @@ function openGame(name){
 
     border-radius:22px;
 
-    box-shadow:
-        0 0 50px #008cff35;
+    box-shadow:0 0 50px #008cff35;
 
     text-align:center;
-
-    position:relative;
 }
 
 .chess-box h2{
