@@ -1890,6 +1890,499 @@ function openGame(name){
 }
 
 </script>
+<!-- =========================
+     GAME CATUR
+========================= -->
 
+<div id="chessGame" class="chess-overlay">
+
+    <div class="chess-box">
+
+        <button class="chess-close" onclick="closeChess()">
+            ×
+        </button>
+
+        <h2>♟️ XTG CHESS</h2>
+
+        <p id="chessStatus">
+            Giliran putih
+        </p>
+
+        <div id="chessBoard"></div>
+
+        <button
+            class="chess-reset"
+            onclick="startChess()">
+
+            Mulai Ulang
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<style>
+
+.chess-overlay{
+
+    position:fixed;
+    inset:0;
+
+    z-index:2000;
+
+    display:none;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:15px;
+
+    background:#000d;
+
+    backdrop-filter:blur(15px);
+}
+
+.chess-overlay.active{
+    display:flex;
+}
+
+.chess-box{
+
+    width:min(95vw,600px);
+
+    padding:25px;
+
+    background:#07101d;
+
+    border:1px solid #168cff;
+
+    border-radius:22px;
+
+    box-shadow:
+        0 0 50px #008cff35;
+
+    text-align:center;
+
+    position:relative;
+}
+
+.chess-box h2{
+
+    margin-bottom:8px;
+
+    color:#65caff;
+
+}
+
+#chessStatus{
+
+    color:#9db8d0;
+
+    margin-bottom:15px;
+
+}
+
+.chess-close{
+
+    position:absolute;
+
+    right:15px;
+    top:15px;
+
+    width:40px;
+    height:40px;
+
+    border-radius:10px;
+
+    border:1px solid #294b6c;
+
+    background:#0b1727;
+
+    color:white;
+
+    font-size:22px;
+
+    cursor:pointer;
+}
+
+#chessBoard{
+
+    width:min(90vw,520px);
+
+    aspect-ratio:1;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(8,1fr);
+
+    border:3px solid #173557;
+
+}
+
+.chess-square{
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:clamp(25px,7vw,48px);
+
+    cursor:pointer;
+
+    user-select:none;
+
+}
+
+.chess-square.light{
+    background:#cbd5df;
+}
+
+.chess-square.dark{
+    background:#29445e;
+}
+
+.chess-square.selected{
+
+    box-shadow:
+        inset 0 0 0 4px #00d9ff;
+
+}
+
+.chess-reset{
+
+    margin-top:18px;
+
+    padding:11px 20px;
+
+    border-radius:10px;
+
+    border:1px solid #168cff;
+
+    background:#0a1c31;
+
+    color:white;
+
+    cursor:pointer;
+
+}
+
+</style>
+
+
+<script>
+
+const chessPieces = {
+
+    whiteKing:"♔",
+    whiteQueen:"♕",
+    whiteRook:"♖",
+    whiteBishop:"♗",
+    whiteKnight:"♘",
+    whitePawn:"♙",
+
+    blackKing:"♚",
+    blackQueen:"♛",
+    blackRook:"♜",
+    blackBishop:"♝",
+    blackKnight:"♞",
+    blackPawn:"♟"
+
+};
+
+
+let chessBoard = [];
+
+let chessTurn = "white";
+
+let selectedSquare = null;
+
+
+/* =========================
+   PAPAN AWAL
+========================= */
+
+function startChess(){
+
+    chessTurn = "white";
+
+    selectedSquare = null;
+
+    chessBoard = [
+
+        [
+            "blackRook",
+            "blackKnight",
+            "blackBishop",
+            "blackQueen",
+            "blackKing",
+            "blackBishop",
+            "blackKnight",
+            "blackRook"
+        ],
+
+        [
+            "blackPawn",
+            "blackPawn",
+            "blackPawn",
+            "blackPawn",
+            "blackPawn",
+            "blackPawn",
+            "blackPawn",
+            "blackPawn"
+        ],
+
+        [null,null,null,null,null,null,null,null],
+
+        [null,null,null,null,null,null,null,null],
+
+        [null,null,null,null,null,null,null,null],
+
+        [null,null,null,null,null,null,null,null],
+
+        [
+            "whitePawn",
+            "whitePawn",
+            "whitePawn",
+            "whitePawn",
+            "whitePawn",
+            "whitePawn",
+            "whitePawn",
+            "whitePawn"
+        ],
+
+        [
+            "whiteRook",
+            "whiteKnight",
+            "whiteBishop",
+            "whiteQueen",
+            "whiteKing",
+            "whiteBishop",
+            "whiteKnight",
+            "whiteRook"
+        ]
+
+    ];
+
+    drawChess();
+
+}
+
+
+/* =========================
+   GAMBAR PAPAN
+========================= */
+
+function drawChess(){
+
+    const board =
+        document.getElementById("chessBoard");
+
+    board.innerHTML="";
+
+    document.getElementById(
+        "chessStatus"
+    ).textContent =
+        "Giliran " +
+        (chessTurn === "white"
+            ? "putih"
+            : "hitam");
+
+
+    for(let row=0;row<8;row++){
+
+        for(let col=0;col<8;col++){
+
+            const square =
+                document.createElement("div");
+
+            square.className =
+                "chess-square " +
+                ((row+col)%2===0
+                    ? "light"
+                    : "dark");
+
+
+            const piece =
+                chessBoard[row][col];
+
+
+            if(piece){
+
+                square.textContent =
+                    chessPieces[piece];
+
+            }
+
+
+            if(
+                selectedSquare &&
+                selectedSquare.row===row &&
+                selectedSquare.col===col
+            ){
+
+                square.classList.add(
+                    "selected"
+                );
+
+            }
+
+
+            square.onclick=function(){
+
+                chessClick(row,col);
+
+            };
+
+
+            board.appendChild(square);
+
+        }
+
+    }
+
+}
+
+
+/* =========================
+   KLIK CATUR
+========================= */
+
+function chessClick(row,col){
+
+    const piece =
+        chessBoard[row][col];
+
+
+    /* memilih bidak */
+
+    if(!selectedSquare){
+
+        if(
+            piece &&
+            piece.startsWith(chessTurn)
+        ){
+
+            selectedSquare={
+                row:row,
+                col:col
+            };
+
+            drawChess();
+
+        }
+
+        return;
+
+    }
+
+
+    /* klik kotak yang sama */
+
+    if(
+        selectedSquare.row===row &&
+        selectedSquare.col===col
+    ){
+
+        selectedSquare=null;
+
+        drawChess();
+
+        return;
+
+    }
+
+
+    const from =
+        chessBoard[
+            selectedSquare.row
+        ][
+            selectedSquare.col
+        ];
+
+
+    /* tidak boleh makan bidak sendiri */
+
+    if(
+        piece &&
+        piece.startsWith(chessTurn)
+    ){
+
+        selectedSquare={
+            row:row,
+            col:col
+        };
+
+        drawChess();
+
+        return;
+
+    }
+
+
+    /*
+       Untuk versi awal,
+       bidak bisa dipindahkan
+       tanpa aturan gerakan lengkap.
+    */
+
+    chessBoard[row][col]=from;
+
+    chessBoard[
+        selectedSquare.row
+    ][
+        selectedSquare.col
+    ]=null;
+
+
+    selectedSquare=null;
+
+
+    chessTurn =
+        chessTurn==="white"
+            ? "black"
+            : "white";
+
+
+    drawChess();
+
+}
+
+
+/* =========================
+   BUKA CATUR
+========================= */
+
+function openChess(){
+
+    document
+        .getElementById("chessGame")
+        .classList
+        .add("active");
+
+    startChess();
+
+}
+
+
+/* =========================
+   TUTUP CATUR
+========================= */
+
+function closeChess(){
+
+    document
+        .getElementById("chessGame")
+        .classList
+        .remove("active");
+
+}
+
+</script>
 </body>
 </html>
