@@ -848,6 +848,10 @@ footer{
 
 }
 
+body.chess-open .background{
+    display:none !important;
+}
+
 </style>
 </head>
 
@@ -2375,6 +2379,8 @@ function openChess(){
         .getElementById("lastGame")
         .textContent = "Catur";
 
+    document.body.classList.add("chess-open");
+
     document
         .getElementById("chessGame")
         .classList
@@ -2389,6 +2395,8 @@ function openChess(){
 ========================= */
 
 function closeChess(){
+
+    document.body.classList.remove("chess-open");
 
     document
         .getElementById("chessGame")
