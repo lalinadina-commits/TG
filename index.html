@@ -2012,19 +2012,17 @@ function openGame(name){
 }
 
 #chessBoard{
-
     width:min(90vw,520px);
-
     aspect-ratio:1;
-
     margin:auto;
-
     display:grid;
 
-    grid-template-columns:
-        repeat(8,1fr);
+    grid-template-columns:repeat(8,1fr);
+    grid-template-rows:repeat(8,1fr);
 
     border:3px solid #173557;
+    overflow:hidden;
+}
 
 }
 
@@ -2044,11 +2042,11 @@ function openGame(name){
 }
 
 .chess-square.light{
-    background:#cbd5df;
+    background:#cbd5df !important;
 }
 
 .chess-square.dark{
-    background:#29445e;
+    background:#29445e !important;
 }
 
 .chess-square.selected{
